@@ -6,6 +6,8 @@ public class Ordenador extends Tablero {
     public Ordenador() {
         super();
     }
+
+
     public void colocar_barcos(Barco b){
         int [] inicio = new int[2];
         inicio[0] = (int) (Math.random() * 11);
