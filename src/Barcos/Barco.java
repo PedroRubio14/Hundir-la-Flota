@@ -1,20 +1,20 @@
 package Barcos;
 
-public class Barco {
-    private int inicio;
+public abstract class Barco {
+    private int[] inicio;
     private int[] direccion;
 
 
-    public Barco(int inicio, int[] direccion) {
+    public Barco(int[] inicio, int[] direccion) {
         this.inicio = inicio;
         this.direccion = direccion;
     }
 
-    public int getInicio() {
+    public int[] getInicio() {
         return inicio;
     }
 
-    public void setInicio(int inicio) {
+    public void setInicio(int[] inicio) {
         this.inicio = inicio;
     }
 

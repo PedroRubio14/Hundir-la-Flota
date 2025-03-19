@@ -1,12 +1,12 @@
-public class Tablero {
-    private int filas;
-    private int columnas;
-    public Casilla[][] tableroJuego;
-    private static final int[][] desplazamientos = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
+package Tableros_Jugadores;
 
-    public Tablero(int filas, int columnas){
-        this.filas = filas;
-        this.columnas = columnas;
+public class Tablero {
+    private final int filas = 12;
+    private final int columnas = 12;
+    public Casilla[][] tableroJuego;
+    static final int[][] desplazamientos = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
+
+    public Tablero(){
         tableroJuego = new Casilla[columnas][filas];
 
     }
@@ -15,16 +15,8 @@ public class Tablero {
         return filas;
     }
 
-    public void setFilas(int filas) {
-        this.filas = filas;
-    }
-
     public int getColumnas() {
         return columnas;
-    }
-
-    public void setColumnas(int columnas) {
-        this.columnas = columnas;
     }
 
     public Casilla[][] getTableroJuego() {
