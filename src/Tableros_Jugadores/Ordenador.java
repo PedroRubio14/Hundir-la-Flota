@@ -8,7 +8,7 @@ public class Ordenador extends Tablero {
     }
 
 
-    public void colocar_barcos(Barco b){
+    public void colocar_barcos(Barco b,Tablero t){
         int [] inicio = new int[2];
         inicio[0] = (int) (Math.random() * 11);
         inicio[1] = (int) (Math.random() * 11);
@@ -17,15 +17,15 @@ public class Ordenador extends Tablero {
 
         int[] desplazamiento = new int[2];
         desplazamiento[0] = Tablero.desplazamientos[diereccion][0];
-        desplazamiento[0] = Tablero.desplazamientos[diereccion][1];
+        desplazamiento[1] = Tablero.desplazamientos[diereccion][1];
 
-        b.setDireccion(desplazamiento);
-        b.setInicio(inicio);
+        if(t.sePotColocar(inicio, desplazamiento,b.getLongitud())){
+            b.setDireccion(desplazamiento);
+            b.setInicio(inicio);
+
+        }
 
 
-
-    }
-    public void lanzar_bomba(){
 
     }
 }

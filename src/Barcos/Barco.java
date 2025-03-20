@@ -3,6 +3,7 @@ package Barcos;
 public abstract class Barco {
     private int[] inicio;
     private int[] direccion;
+    private int longitud;
 
 
     public Barco(int[] inicio, int[] direccion) {
@@ -24,5 +25,8 @@ public abstract class Barco {
 
     public void setDireccion(int[] direccion) {
         this.direccion = direccion;
+    }
+    public int getLongitud() {
+        return longitud;
     }
 }
