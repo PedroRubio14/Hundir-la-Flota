@@ -22,8 +22,7 @@ public class Ordenador {
         if(t.sePotColocar(inicio, desplazamiento,b.getLongitud())){
 
             t.poner_barocs(inicio, desplazamiento,b.getLongitud(), t );
-            b.setDireccion(desplazamiento);
-            b.setInicio(inicio);
+
 
         }
 
