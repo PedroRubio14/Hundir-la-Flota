@@ -3,31 +3,26 @@ package Barcos;
 import Tableros_Jugadores.Tablero;
 
 public abstract class Barco {
-    private int[] inicio;
-    private int[] direccion;
+    private PiezasBarco[] posiciones;
     private int longitud;
 
 
-    public Barco(int[] inicio, int[] direccion) {
-        this.inicio = inicio;
-        this.direccion = direccion;
+    public Barco() {
+
     }
 
-    public int[] getInicio() {
-        return inicio;
+    public PiezasBarco[] getPosiciones() {
+        return posiciones;
     }
 
-    public void setInicio(int[] inicio) {
-        this.inicio = inicio;
+    public void setPosiciones(PiezasBarco[] posiciones) {
+        this.posiciones = posiciones;
     }
 
-    public int[] getDireccion() {
-        return direccion;
+    public void setLongitud(int longitud) {
+        this.longitud = longitud;
     }
 
-    public void setDireccion(int[] direccion) {
-        this.direccion = direccion;
-    }
     public int getLongitud() {
         return longitud;
     }
