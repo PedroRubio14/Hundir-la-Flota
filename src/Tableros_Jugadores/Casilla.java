@@ -4,6 +4,11 @@ public class Casilla {
     private boolean barco;
     private boolean tapada;
 
+    public Casilla(boolean barco, boolean tapada) {
+        this.barco = barco;
+        this.tapada = tapada;
+    }
+
     public boolean isBarco() {
         return barco;
     }

@@ -1,5 +1,7 @@
 package Barcos;
 
+import Tableros_Jugadores.Tablero;
+
 public abstract class Barco {
     private int[] inicio;
     private int[] direccion;
