@@ -7,24 +7,27 @@ import java.util.ArrayList;
 
 public abstract class Barco {
     private ArrayList<Casilla> posiciones;
+    private int ataques;
     private int longitud;
 
 
     public Barco() {
-
+    this.posiciones = new ArrayList<>();
+    this.ataques = 0;
     }
 
-    public ArrayList<Casilla> getPosiciones() {
-        return posiciones;
+    public void agregarPosicion(Casilla c) {
+        posiciones.add(c);
     }
 
-    public void setPosiciones(ArrayList<Casilla> posiciones) {
-        this.posiciones = posiciones;
+    public void tocado(){
+        ataques++;
     }
 
-    public void setLongitud(int longitud) {
-        this.longitud = longitud;
+    public boolean hundido(){
+        return ataques >=posiciones.size();
     }
+
 
     public int getLongitud() {
         return longitud;

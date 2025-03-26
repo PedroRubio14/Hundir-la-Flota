@@ -1,48 +1,41 @@
 package Juego;
+import Barcos.*;
 import Tableros_Jugadores.Tablero;
 import Tableros_Jugadores.Casilla;
 
 public class Juego {
 
     public void partida(){
-        Tablero t = new Tablero();
-        t.iniciarTablero(t);
+        Tablero t = new Tablero(12,12);
+        crearBarcos(t);
         t.mostrarTablero();
 
 
     }
 
     public void Turno(Tablero t){
-        Disparar(t);
+        int filas = Textos.llegirInt();
+        int col = Textos.llegirInt();
+        t.Disparar(filas, col);
 
 
     }
 
-    public void Disparar(Tablero t){
-        int fila = Textos.llegirInt();
-        int columna = Textos.llegirInt();
+    public void crearBarcos(Tablero t){
+        Barco acorazado = new Acorazado();
+        Barco destructor = new Destructor();
+        Barco fragata = new Fragata();
+        Barco portaviones = new Portaviones();
+        Barco submarino = new Submarino();
 
-        if(Tocado(fila, columna,t)){
-
-        } else {
-
-        }
-        if(Hundido(fila,columna,t)){
-
-        }
+        t.posiciones_barcos(acorazado);
+        t.posiciones_barcos(destructor);
+        t.posiciones_barcos(fragata);
+        t.posiciones_barcos(portaviones);
+        t.posiciones_barcos(submarino);
     }
 
-    private boolean Tocado(int f, int c,Tablero t){
-        if(t.tableroJuego[f][c].isBarco()){
-            t.tableroJuego[f][c].setTocado(true);
-            return true;
-        }
-        return false;
 
-    }
-    private boolean Hundido(int f, int c,Tablero t){
-        return false;
-    }
 
 
 }

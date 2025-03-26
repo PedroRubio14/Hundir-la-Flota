@@ -3,83 +3,70 @@ package Tableros_Jugadores;
 import Barcos.*;
 import Juego.Textos;
 
+import java.util.ArrayList;
+
 public class Tablero {
-    private final int filas = 12;
-    private final int columnas = 12;
     public Casilla[][] tableroJuego;
-    static final int[][] desplazamientos = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
+    static final int[][] desplazamientos = {{0, 1}, {1, 0}};
+    private ArrayList<Barco> barcos;
 
-    public Tablero(){
-        tableroJuego = new Casilla[columnas][filas];
+    public Tablero(int filas, int columnas){
+        tableroJuego = new Casilla[filas][columnas];
+        barcos = new ArrayList<>();
 
-    }
-
-    public int getFilas() {
-        return filas;
-    }
-
-    public int getColumnas() {
-        return columnas;
-    }
-
-    public Casilla[][] getTableroJuego() {
-        return tableroJuego;
-    }
-
-    public void setTableroJuego(Casilla[][] tableroJuego) {
-        this.tableroJuego = tableroJuego;
-    }
-
-    public void iniciarTablero(Tablero t){
-        for(int i = 0; i < t.tableroJuego.length; i++){
-            for(int j = 0; j < t.tableroJuego[i].length; j++){
-                t.tableroJuego[i][j] = new Casilla(false , false);
+        for(int i = 0; i < filas; i++){
+            for(int j = 0; j < columnas; j++){
+                tableroJuego[i][j] = new Casilla(i,j);
             }
         }
-        crear_barcos(t);
+
     }
 
-    private void crear_barcos(Tablero t){
-        Barco[] barcos = new Barco[5];
-        barcos[0] = new Acorazado();
-        barcos[1] = new Destructor();
-        barcos[2] = new Fragata();
-        barcos[3]= new Portaviones();
-        barcos[4]= new Submarino();
 
-        for(int i = 0; i < barcos.length;i++){
-            posiciones_barcos(barcos[i], t);
-        }
-    }
-
-    public boolean sePotColocar(int[] inicio, int[] desplazamiento, int longitud) {
+    public boolean sePotColocar(int[] inicio, int[] desplazamiento, Barco b) {
         int fila = inicio[0];
         int columna = inicio[1];
 
-        for (int i = 0; i < longitud; i++) {
-            if (fila < 0 || fila >= filas || columna < 0 || columna >= columnas) {
+        if(desplazamiento[0] == 0 && desplazamiento[1] == 1){
+            if((columna + b.getLongitud())>tableroJuego[0].length){
+                return false;
+            }
+        }
+        if(desplazamiento[0]==1 && desplazamiento[1]== 0){
+            if(fila + b.getLongitud()>tableroJuego.length){
+                return false;
+            }
+        }
+
+        for (int i = 0; i < b.getLongitud(); i++) {
+            if (fila < 0 || fila >= tableroJuego.length || columna < 0 || columna >= tableroJuego[0].length) {
                 return false;
             }
 
-            if (tableroJuego[fila][columna].isBarco()) {
+            if (tableroJuego[fila][columna].tiene_barco()) {
                 return false;
             }
+
             fila += desplazamiento[0];
             columna += desplazamiento[1];
+
+
         }
+
 
         return true;
     }
 
 
-    public void poner_barocs(int[] inicio, int[] desplazamiento, Barco b, Tablero t){
+    public void poner_baroc(int[] inicio, int[] desplazamiento, Barco b){
 
         int longitud = b.getLongitud();
 
         for( int i = 0; i<longitud; i++){
-            t.tableroJuego[inicio[0]][inicio[1]].setBarco(true);
+            Casilla Cb = tableroJuego[inicio[0]][inicio[1]];
 
-
+            b.agregarPosicion(Cb);
+            Cb.setBarco(b);
 
 
             inicio[0] += desplazamiento[0];
@@ -87,13 +74,15 @@ public class Tablero {
 
         }
 
+        barcos.add(b);
+
 
     }
 
     public void mostrarTablero(){
         for(int i = 0; i < tableroJuego.length; i++){
             for(int j = 0; j < tableroJuego[i].length; j++){
-                if(j%columnas == 0){
+                if(j%tableroJuego[i].length == 0){
                     Textos.imprimir(Textos.Codigo.ESPACIO);
                 } else {
                     Textos.imprimir(Textos.Codigo.CASILLA, tableroJuego[i][j]);
@@ -104,24 +93,24 @@ public class Tablero {
 
 
 
-    public static void posiciones_barcos(Barco b,Tablero t){
+    public void posiciones_barcos(Barco b){
 
         boolean barcocolocado = false;
 
         while (!barcocolocado) {
             int [] inicio = new int[2];
-            inicio[0] = (int) (Math.random() * t.getFilas());
-            inicio[1] = (int) (Math.random() * t.getColumnas());
+            inicio[0] = (int) (Math.random() * tableroJuego.length );
+            inicio[1] = (int) (Math.random() * tableroJuego[0].length);
 
-            int diereccion = (int) (Math.random() * 4);
+            int diereccion = (int) (Math.random() * desplazamientos.length);
 
             int[] desplazamiento = new int[2];
             desplazamiento[0] = Tablero.desplazamientos[diereccion][0];
             desplazamiento[1] = Tablero.desplazamientos[diereccion][1];
 
-            if (t.sePotColocar(inicio, desplazamiento, b.getLongitud())) {
+            if (sePotColocar(inicio, desplazamiento, b)) {
 
-                t.poner_barocs(inicio, desplazamiento, b, t);
+                poner_baroc(inicio, desplazamiento, b);
                 barcocolocado = true;
 
 
@@ -129,5 +118,28 @@ public class Tablero {
         }
 
     }
+
+    public void Disparar(int filas, int columnas){
+        Casilla C_atc = tableroJuego[filas][columnas];
+
+        if(C_atc.isTocado()){
+
+        }
+
+
+        C_atc.setTocado();
+
+
+        if(C_atc.tiene_barco()){
+
+        } else {
+            // tiene agua
+        }
+        if(C_atc.getBarco().hundido()){
+
+        }
+
+    }
+
 
 }

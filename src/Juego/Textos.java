@@ -22,6 +22,8 @@ public class Textos {
             ESPACIO,
             PARTIDA_FINALIZADA,
             CASILLA,
+            TOCADO,
+            HUNDIDO,
 
         }
         public static void imprimir (Codigo codigo, Object...args){
@@ -33,12 +35,12 @@ public class Textos {
                 case CASILLA:
                     if(args[0] instanceof Casilla c){
 
-                        if(c.isTapada()){
+                        if(!c.isTocado()){
                             System.out.printf("[ %s ]" , "\uD83D\uDFE6");
-                        } else if(c.isBarco()){
+                        } else if(c.tiene_barco()){
                             System.out.printf("[ %s ]" , "\uD83D\uDEF3\uFE0F");
                         } else {
-                            System.out.printf("[ %s ]" , "+"/*"\uD83C\uDF0A"*/);
+                            System.out.printf("[ %s ]" , "\uD83C\uDF0A");
                         }
 
                     }
@@ -47,6 +49,14 @@ public class Textos {
                     case ESPACIO:
                     System.out.println();
                     break;
+
+                case TOCADO:
+                    System.out.println("TOCADO" + "\uD83D\uDCA5");
+                    break;
+                case HUNDIDO:
+                    System.out.println("HUNDIDO" + "\uD83D\uDCA5"+"\uD83D\uDCA5"+"\uD83D\uDCA5");
+                    break;
+
 
 
             }
