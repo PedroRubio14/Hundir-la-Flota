@@ -2,19 +2,23 @@ package Juego;
 
 import Tableros_Jugadores.Casilla;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Textos {
 
         static Scanner sc = new Scanner(System.in);
 
-        public static int llegirInt (){
+
+
+        public static int llegirInt () {
             return sc.nextInt();
         }
 
-        public static String llegirString() {
-            return sc.nextLine();
-        }
+
+        public static String llegirString () {
+        return sc.nextLine();
+    }
 
 
 
@@ -29,6 +33,9 @@ public class Textos {
             ELECCION,
             ELECCION1,
             GANADOR,
+            NUMERO,
+            EX1,
+            EX2,
 
         }
         public static void imprimir (Codigo codigo, Object...args){
@@ -78,6 +85,17 @@ public class Textos {
                 case GANADOR:
                     System.out.println("HA GANADO ");
                     System.out.println("FINAL DE LA PARTIDA ");
+                    break;
+                case NUMERO:
+                    if(args[0] instanceof Integer n) {
+                        System.out.printf("[ %1d ]",n);
+                    }
+                    break;
+                case EX1:
+                    System.out.println("INTRODUCE UN NUMERO VALIDO");
+                    break;
+                case EX2:
+                    System.out.println("NUMERO FUERA DE RANGO");
                     break;
 
             }

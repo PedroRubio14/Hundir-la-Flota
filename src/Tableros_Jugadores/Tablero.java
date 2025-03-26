@@ -80,10 +80,15 @@ public class Tablero {
     }
 
     public void mostrarTablero(){
+        for(int j = 0; j < tableroJuego[0].length; j++){
+            Textos.imprimir(Textos.Codigo.NUMERO, (Integer) j);
+        }
+        Textos.imprimir(Textos.Codigo.ESPACIO);
         for(int i = 0; i < tableroJuego.length; i++){
             for(int j = 0; j < tableroJuego[i].length; j++){
                 if(j == tableroJuego[i].length -1){
                     Textos.imprimir(Textos.Codigo.CASILLA, tableroJuego[i][j]);
+                    Textos.imprimir(Textos.Codigo.NUMERO, (Integer) i);
                     Textos.imprimir(Textos.Codigo.ESPACIO);
                 } else {
                     Textos.imprimir(Textos.Codigo.CASILLA, tableroJuego[i][j]);

@@ -1,7 +1,9 @@
 package Juego;
 import Barcos.*;
 import Tableros_Jugadores.Tablero;
-import Tableros_Jugadores.Casilla;
+
+import java.util.InputMismatchException;
+
 
 public class Juego {
     boolean partida_finalizada = false;
@@ -21,17 +23,33 @@ public class Juego {
     }
 
     public void Turno(Tablero t){
-        Textos.imprimir(Textos.Codigo.ELECCION);
-        int filas = Textos.llegirInt();
-        Textos.imprimir(Textos.Codigo.ELECCION1);
-        int col = Textos.llegirInt();
-        t.Disparar(filas, col);
-        t.mostrarTablero();
+        int filas;
+        int col;
+        while (true) {
+            try {
+                Textos.imprimir(Textos.Codigo.ELECCION);
+                filas = Textos.llegirInt();
+                Textos.imprimir(Textos.Codigo.ELECCION1);
+                col = Textos.llegirInt();
 
-        if(t.ganador()){
-            Textos.imprimir(Textos.Codigo.GANADOR);
-            partida_finalizada = true;
+                t.Disparar(filas, col);
+                t.mostrarTablero();
 
+
+                if(t.ganador()){
+                    Textos.imprimir(Textos.Codigo.GANADOR);
+                    partida_finalizada = true;
+
+                }
+                break;
+            } catch (InputMismatchException e) {
+                Textos.imprimir(Textos.Codigo.EX1);
+                Textos.llegirString();
+            } catch (ArrayIndexOutOfBoundsException e){
+                Textos.imprimir(Textos.Codigo.EX2);
+
+
+            }
         }
 
 
