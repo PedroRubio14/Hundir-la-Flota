@@ -4,12 +4,13 @@ import Tableros_Jugadores.Tablero;
 import Tableros_Jugadores.Casilla;
 
 public class Juego {
+    boolean partida_finalizada = false;
 
     public void partida(){
         Tablero t = new Tablero(12,12);
         crearBarcos(t);
         t.mostrarTablero();
-        boolean partida_finalizada = false;
+
 
         while (!partida_finalizada){
             Turno(t);
@@ -29,6 +30,8 @@ public class Juego {
 
         if(t.ganador()){
             Textos.imprimir(Textos.Codigo.GANADOR);
+            partida_finalizada = true;
+
         }
 
 
