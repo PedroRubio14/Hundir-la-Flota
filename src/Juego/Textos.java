@@ -38,7 +38,7 @@ public class Textos {
                         } else if(c.isBarco()){
                             System.out.printf("[ %s ]" , "\uD83D\uDEF3\uFE0F");
                         } else {
-                            System.out.printf("[ %s ]" ,"\uD83C\uDF0A");
+                            System.out.printf("[ %s ]" , "+"/*"\uD83C\uDF0A"*/);
                         }
 
                     }

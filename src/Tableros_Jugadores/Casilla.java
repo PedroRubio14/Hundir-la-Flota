@@ -3,6 +3,8 @@ package Tableros_Jugadores;
 public class Casilla {
     private boolean barco;
     private boolean tapada;
+    private boolean tocado;
+
 
     public Casilla(boolean barco, boolean tapada) {
         this.barco = barco;
@@ -24,4 +26,13 @@ public class Casilla {
     public void setTapada(boolean tapada) {
         this.tapada = tapada;
     }
+
+    public boolean isTocado() {
+        return tocado;
+    }
+
+    public void setTocado(boolean tocado) {
+        this.tocado = tocado;
+    }
+
 }

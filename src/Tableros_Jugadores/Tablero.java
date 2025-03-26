@@ -1,5 +1,6 @@
 package Tableros_Jugadores;
 
+import Barcos.*;
 import Juego.Textos;
 
 public class Tablero {
@@ -30,40 +31,63 @@ public class Tablero {
     }
 
     public void iniciarTablero(Tablero t){
-        t.getTableroJuego();
         for(int i = 0; i < t.tableroJuego.length; i++){
             for(int j = 0; j < t.tableroJuego[i].length; j++){
-                t.tableroJuego[i][j] = new Casilla(false, true);
+                t.tableroJuego[i][j] = new Casilla(false , false);
             }
         }
-
+        crear_barcos(t);
     }
 
-    public boolean sePotColocar(int[] inicio, int[] desplazamiento, int longitud){
-       for(int i = 0; i < longitud;i++){
-           if(inicio[0] < 0 || inicio[0] > filas ||
-              inicio[1] < 0|| inicio[1] > columnas   ){
-               return false;
-           }
+    private void crear_barcos(Tablero t){
+        Barco[] barcos = new Barco[5];
+        barcos[0] = new Acorazado();
+        barcos[1] = new Destructor();
+        barcos[2] = new Fragata();
+        barcos[3]= new Portaviones();
+        barcos[4]= new Submarino();
 
-           if(inicio[0]+desplazamiento[0] < 0 || inicio[0]+desplazamiento[0]  > filas ||
-                   inicio[1]+desplazamiento[1]  < 0|| inicio[1]+desplazamiento[1]  > columnas ) {
-               return false;
-           }
-           inicio[1]+=desplazamiento[1];
-           inicio[0]+=desplazamiento[0];
-       }
-       return true;
-    }
-
-    public void poner_barocs(int[] inicio, int[] desplazamiento, int longitud, Tablero t){
-        Casilla[][] tablero = t.getTableroJuego();
-
-        for(int i = 0; i < longitud;i++){
-            tablero[inicio[0]][inicio[1]].setBarco(true);
-            inicio[1]+=desplazamiento[1];
-            inicio[0]+=desplazamiento[0];
+        for(int i = 0; i < barcos.length;i++){
+            posiciones_barcos(barcos[i], t);
         }
+    }
+
+    public boolean sePotColocar(int[] inicio, int[] desplazamiento, int longitud) {
+        int fila = inicio[0];
+        int columna = inicio[1];
+
+        for (int i = 0; i < longitud; i++) {
+            if (fila < 0 || fila >= filas || columna < 0 || columna >= columnas) {
+                return false;
+            }
+
+            if (tableroJuego[fila][columna].isBarco()) {
+                return false;
+            }
+            fila += desplazamiento[0];
+            columna += desplazamiento[1];
+        }
+
+        return true;
+    }
+
+
+    public void poner_barocs(int[] inicio, int[] desplazamiento, Barco b, Tablero t){
+
+        int longitud = b.getLongitud();
+
+        for( int i = 0; i<longitud; i++){
+            t.tableroJuego[inicio[0]][inicio[1]].setBarco(true);
+
+
+
+
+            inicio[0] += desplazamiento[0];
+            inicio[1] += desplazamiento[1];
+
+        }
+
+
     }
 
     public void mostrarTablero(){
@@ -77,4 +101,33 @@ public class Tablero {
             }
         }
     }
+
+
+
+    public static void posiciones_barcos(Barco b,Tablero t){
+
+        boolean barcocolocado = false;
+
+        while (!barcocolocado) {
+            int [] inicio = new int[2];
+            inicio[0] = (int) (Math.random() * t.getFilas());
+            inicio[1] = (int) (Math.random() * t.getColumnas());
+
+            int diereccion = (int) (Math.random() * 4);
+
+            int[] desplazamiento = new int[2];
+            desplazamiento[0] = Tablero.desplazamientos[diereccion][0];
+            desplazamiento[1] = Tablero.desplazamientos[diereccion][1];
+
+            if (t.sePotColocar(inicio, desplazamiento, b.getLongitud())) {
+
+                t.poner_barocs(inicio, desplazamiento, b, t);
+                barcocolocado = true;
+
+
+            }
+        }
+
+    }
+
 }
