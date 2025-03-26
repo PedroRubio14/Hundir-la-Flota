@@ -23,7 +23,12 @@ public class Textos {
             PARTIDA_FINALIZADA,
             CASILLA,
             TOCADO,
+            YATOCADO,
             HUNDIDO,
+            AGUA,
+            ELECCION,
+            ELECCION1,
+            GANADOR,
 
         }
         public static void imprimir (Codigo codigo, Object...args){
@@ -56,8 +61,24 @@ public class Textos {
                 case HUNDIDO:
                     System.out.println("HUNDIDO" + "\uD83D\uDCA5"+"\uD83D\uDCA5"+"\uD83D\uDCA5");
                     break;
-
-
+                case AGUA:
+                    System.out.println("AGUA");
+                    break;
+                case ELECCION:
+                    System.out.println();
+                    System.out.print("FILA: ");
+                    break;
+                case ELECCION1:
+                    System.out.println();
+                    System.out.print("COLUMNA: ");
+                    break;
+                case YATOCADO:
+                    System.out.println("ESTA CASILLA YA HABIA SIDO ATACADA");
+                    break;
+                case GANADOR:
+                    System.out.println("HA GANADO ");
+                    System.out.println("FINAL DE LA PARTIDA ");
+                    break;
 
             }
         }

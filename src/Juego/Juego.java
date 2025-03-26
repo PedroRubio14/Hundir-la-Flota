@@ -9,14 +9,27 @@ public class Juego {
         Tablero t = new Tablero(12,12);
         crearBarcos(t);
         t.mostrarTablero();
+        boolean partida_finalizada = false;
+
+        while (!partida_finalizada){
+            Turno(t);
+
+        }
 
 
     }
 
     public void Turno(Tablero t){
+        Textos.imprimir(Textos.Codigo.ELECCION);
         int filas = Textos.llegirInt();
+        Textos.imprimir(Textos.Codigo.ELECCION1);
         int col = Textos.llegirInt();
         t.Disparar(filas, col);
+        t.mostrarTablero();
+
+        if(t.ganador()){
+            Textos.imprimir(Textos.Codigo.GANADOR);
+        }
 
 
     }
@@ -34,6 +47,8 @@ public class Juego {
         t.posiciones_barcos(portaviones);
         t.posiciones_barcos(submarino);
     }
+
+
 
 
 

@@ -82,7 +82,8 @@ public class Tablero {
     public void mostrarTablero(){
         for(int i = 0; i < tableroJuego.length; i++){
             for(int j = 0; j < tableroJuego[i].length; j++){
-                if(j%tableroJuego[i].length == 0){
+                if(j == tableroJuego[i].length -1){
+                    Textos.imprimir(Textos.Codigo.CASILLA, tableroJuego[i][j]);
                     Textos.imprimir(Textos.Codigo.ESPACIO);
                 } else {
                     Textos.imprimir(Textos.Codigo.CASILLA, tableroJuego[i][j]);
@@ -123,22 +124,32 @@ public class Tablero {
         Casilla C_atc = tableroJuego[filas][columnas];
 
         if(C_atc.isTocado()){
-
-        }
-
-
-        C_atc.setTocado();
-
-
-        if(C_atc.tiene_barco()){
-
+            Textos.imprimir(Textos.Codigo.YATOCADO);
         } else {
-            // tiene agua
-        }
-        if(C_atc.getBarco().hundido()){
 
+
+            C_atc.setTocado();
+
+
+            if (C_atc.tiene_barco()) {
+                Textos.imprimir(Textos.Codigo.TOCADO);
+            } else {
+                // tiene agua
+            }
+            if (C_atc.getBarco() != null && C_atc.getBarco().hundido()) {
+                Textos.imprimir(Textos.Codigo.HUNDIDO);
+            }
         }
 
+    }
+
+    public boolean ganador(){
+        for(int i = 0; i < barcos.size();i++){
+            if(!barcos.get(i).hundido()){
+                return false;
+            }
+        }
+        return true;
     }
 
 
