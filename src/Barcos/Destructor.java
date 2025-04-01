@@ -6,6 +6,9 @@ public class Destructor extends Barco {
     public Destructor() {
         super();
     }
+
+
+
     public int getLongitud() {
         return longitud;
     }

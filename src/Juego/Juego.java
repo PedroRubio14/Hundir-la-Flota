@@ -1,5 +1,6 @@
 package Juego;
 import Barcos.*;
+import Tableros_Jugadores.Casilla;
 import Tableros_Jugadores.Tablero;
 
 import java.util.InputMismatchException;
@@ -25,6 +26,7 @@ public class Juego {
     public void Turno(Tablero t){
         int filas;
         int col;
+
         while (true) {
             try {
                 Textos.imprimir(Textos.Codigo.ELECCION);
@@ -32,7 +34,7 @@ public class Juego {
                 Textos.imprimir(Textos.Codigo.ELECCION1);
                 col = Textos.llegirInt();
 
-                t.Disparar(filas, col);
+                Disparar(filas, col, t);
                 t.mostrarTablero();
 
 
@@ -42,6 +44,7 @@ public class Juego {
 
                 }
                 break;
+
             } catch (InputMismatchException e) {
                 Textos.imprimir(Textos.Codigo.EX1);
                 Textos.llegirString();
@@ -54,6 +57,34 @@ public class Juego {
 
 
     }
+
+
+
+    public void Disparar(int filas, int columnas, Tablero t){
+        Casilla C_atc = t.tableroJuego[filas][columnas];
+
+        if(C_atc.isTocado()){
+            Textos.imprimir(Textos.Codigo.YATOCADO);
+        } else {
+
+
+            C_atc.setTocado();
+
+
+            if (C_atc.tiene_barco()) {
+                Textos.imprimir(Textos.Codigo.TOCADO);
+            } else {
+                // tiene agua
+            }
+            if (C_atc.tiene_barco() && C_atc.getBarco().hundido()) {
+                Textos.imprimir(Textos.Codigo.HUNDIDO);
+            }
+        }
+
+    }
+
+
+
 
     public void crearBarcos(Tablero t){
         Barco acorazado = new Acorazado();

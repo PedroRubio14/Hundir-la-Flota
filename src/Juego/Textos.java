@@ -2,7 +2,6 @@ package Juego;
 
 import Tableros_Jugadores.Casilla;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Textos {
@@ -16,9 +15,9 @@ public class Textos {
         }
 
 
-        public static String llegirString () {
-        return sc.nextLine();
-    }
+        public static void llegirString () {
+            sc.nextLine();
+        }
 
 
 

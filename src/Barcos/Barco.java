@@ -20,12 +20,22 @@ public abstract class Barco {
         posiciones.add(c);
     }
 
-    public void tocado(){
-        ataques++;
+    public boolean tocado(){
+        for(int i = 0; i<posiciones.size();i++){
+            if(posiciones.get(i).isTocado()){
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean hundido(){
-        return ataques >=posiciones.size();
+        for(int i = 0; i<posiciones.size();i++){
+            if(!posiciones.get(i).isTocado()){
+                return false;
+            }
+        }
+        return true;
     }
 
 
